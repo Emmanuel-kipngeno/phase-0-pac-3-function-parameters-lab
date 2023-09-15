@@ -1,30 +1,26 @@
-global.expect = require('expect');
+function sayHello(name) {
+  return `Hello, ${name}!`;
+}
 
-const babel = require('babel-core');
-const jsdom = require('jsdom');
-const path = require('path');
+function introductionWithLanguage(name, language) {
+  return `Hello, my name is ${name} and I am learning ${language}.`;
+}
 
-before(function(done) {
-  const babelResult = babel.transformFileSync(
-    path.resolve(__dirname, '..', 'index.js'), {
-      presets: ['es2015']
-    }
-  );
+function introductionWithLanguageOptional(name, language = 'JavaScript') {
+  return `Hello, my name is ${name} and I am learning ${language}.`;
+}
 
-  const html = path.resolve(__dirname, '..', 'index.html')
+module.exports = { sayHello, introductionWithLanguage, introductionWithLanguageOptional };
+function sayHello(name) {
+  return `Hello, ${name}!`;
+}
 
-  jsdom.env(html, [], {
-    src: babelResult.code,
-    virtualConsole: jsdom.createVirtualConsole().sendTo(console)
-  }, (err, window) => {
-    if (err) {
-      return done(err);
-    }
+function introductionWithLanguage(name, language) {
+  return `Hello, my name is ${name} and I am learning ${language}.`;
+}
 
-    Object.keys(window).forEach(key => {
-      global[key] = window[key];
-    });
+function introductionWithLanguageOptional(name, language = 'JavaScript') {
+  return `Hello, my name is ${name} and I am learning ${language}.`;
+}
 
-    return done();
-  });
-});
+module.exports = { sayHello, introductionWithLanguage, introductionWithLanguageOptional };
